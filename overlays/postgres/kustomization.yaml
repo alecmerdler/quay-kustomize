@@ -1,0 +1,14 @@
+# Postgres overlay adds a Postgres database for Quay to use
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources: 
+  - ../../base
+  - ./postgres.deployment.yaml
+  - ./postgres.service.yaml
+secretGenerator:
+  # Add Postgres fields to `config.yaml` (https://github.com/kubernetes-sigs/kustomize/blob/master/examples/combineConfigs.md)
+  - name: quay-config-secret
+    behavior: merge
+    literals:
+      - DATABASE_SECRET_KEY=30060361640793187613697366923211113205676925445650250274752125083971638376224
+      - DB_URI=postgresql://postgres:postgres@quay-postgres/quay

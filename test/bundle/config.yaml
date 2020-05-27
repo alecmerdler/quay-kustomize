@@ -1,0 +1,10 @@
+# TODO(alecmerdler): Remove all fields that have sane defaults
+ENTERPRISE_LOGO_URL: /static/img/quay-horizontal-color.svg
+FEATURE_SUPER_USERS: true
+SUPER_USERS:
+- devtable
+- alecmerdler
+PREFERRED_URL_SCHEME: https
+REGISTRY_TITLE: Skynet Quay
+REGISTRY_TITLE_SHORT: Skynet Quay
+SERVER_HOSTNAME: registry.skynet-dev.com
