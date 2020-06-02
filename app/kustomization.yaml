@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  # - ../base
+  # FIXME(alecmerdler): Error: accumulating resources: recursed merging from path '../overlays/clair': may not add resource with an already registered id: rbac.authorization.k8s.io_v1beta1_Role|~X|quay-serviceaccount
+  # - ../overlays/postgres
+  - ../overlays/clair
+  # - ../overlays/redis
+secretGenerator:
+  - name: quay-config-secret
+    behavior: merge
+    files:
+      - ./bundle/config.yaml
+      - ./bundle/ssl.cert
+      - ./bundle/ssl.key
+      # - extra_ca_cert_test.cert=./bundle/extra_ca_certs/extra_ca_certs_test.cert

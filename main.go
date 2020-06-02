@@ -27,7 +27,7 @@ func check(err error) {
 func main() {
 	quayConfigSecretFile := ""
 
-	files, err := ioutil.ReadDir("output/test")
+	files, err := ioutil.ReadDir("output")
 	check(err)
 	for _, f := range files {
 		if strings.Contains(f.Name(), "quay-config-secret") {
@@ -36,7 +36,7 @@ func main() {
 		}
 	}
 
-	yamlFile, err := ioutil.ReadFile(path.Join("output", "test", quayConfigSecretFile))
+	yamlFile, err := ioutil.ReadFile(path.Join("output", quayConfigSecretFile))
 	check(err)
 
 	// TODO(alecmerdler): Use actual k8s `Secret` struct here...
@@ -78,7 +78,7 @@ func main() {
 	modifiedYAMLFile, err := yaml.Marshal(quayConfigSecret)
 	check(err)
 
-	err = ioutil.WriteFile(path.Join("output", "test", quayConfigSecretFile), modifiedYAMLFile, 0644)
+	err = ioutil.WriteFile(path.Join("output", quayConfigSecretFile), modifiedYAMLFile, 0644)
 	check(err)
 
 	fmt.Println("Successfully updated config secret.")
