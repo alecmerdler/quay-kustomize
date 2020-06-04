@@ -14,7 +14,6 @@ Create a copy, add your secrets, values, and certs, choose which features you wa
 
 ### Prerequisites 
 
-- `kustomize` v3.3.0+
 - `go` v1.14+
 
 1. Use the `app/` directory to "kustomize" your Quay deployment.
@@ -26,10 +25,10 @@ Create a copy, add your secrets, values, and certs, choose which features you wa
 2. When you are ready to generate the final deployment files, run the following:
 ```sh
 $ mkdir ./output
-$ kustomize build ./app -o ./output && go run main.go
+$ go run main.go
 ```
 
-This runs `kustomize build` as normal, then executes a small Go program which properly formats the `quay-config-secret`.
+This is a small Go program which internally uses `kustomize` as a library, then properly formats the `quay-config-secret`.
 
 3. Now you can simply use `kubectl` or any other Kubernetes client to deploy Quay:
 ```sh
@@ -51,5 +50,7 @@ You can use `git-crypt` to protect your secrets, like database credentials and a
 
 ### Future Work
 
-- Use [Kustomize `components`](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/components.md) instead of `variants` for more DRY code
-- Quay Operator which provides application lifecycle management using this tool
+- [x] Use `kustomize` as a library instead of CLI
+- [x] Use [Kustomize `components`](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/components.md) instead of `variants` for more DRY code
+- [ ] Quay Operator which provides application lifecycle management using this tool
+- [ ] Add `ownerReferences` to all created resources for easy tracking and cleanup
