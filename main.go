@@ -26,7 +26,7 @@ func check(err error) {
 	}
 }
 
-// generate uses Kustomize as a library to build the output files
+// generate uses Kustomize as a library to build the output files.
 func generate() {
 	fSys := filesys.MakeFsOnDisk()
 	opts := &krusty.Options{}

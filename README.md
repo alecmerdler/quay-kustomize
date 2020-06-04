@@ -47,10 +47,14 @@ You can use `git-crypt` to protect your secrets, like database credentials and a
 
 - This tool does not provide validation of the resulting `quay-config-secret`
 - If you choose to use an unmanaged external service (database/storage/Redis/Clair), you must add the appropriate `<CONFIG_FIELD>: <value>` entries to `app/bundle/config.yaml`
+- On OCP, you need to run `oc adm policy add-scc-to-user anyuid system:serviceaccount:quay-enterprise:default` before deploying
+- Need to manually point DNS to the created Quay `Service` with `type: LoadBalancer` (ensure it matches `SERVER_HOSTNAME` in `config.yaml`)
 
 ### Future Work
 
 - [x] Use `kustomize` as a library instead of CLI
 - [x] Use [Kustomize `components`](https://github.com/kubernetes-sigs/kustomize/blob/master/examples/components.md) instead of `variants` for more DRY code
+- [ ] Use other Operators to provide external services (like CrunchyDB Postgres Operator, Redis Operator, etc...)
+- [ ] Refactor into Go module which can be imported by other tools
 - [ ] Quay Operator which provides application lifecycle management using this tool
 - [ ] Add `ownerReferences` to all created resources for easy tracking and cleanup

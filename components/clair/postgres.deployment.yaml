@@ -14,10 +14,10 @@ spec:
       labels:
         quay-component: clair-postgres
     spec:
-      # volumes:
-      #   - name: postgres-data
-      #     persistentVolumeClaim:
-      #       claimName: clair-postgres
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: clair-postgres
       containers:
         - name: postgres
           image: postgres:latest
@@ -26,13 +26,13 @@ spec:
             - containerPort: 5432
           env:
             - name: POSTGRES_USER
-              value: "postgres"
+              value: postgres
             - name: POSTGRES_DB
-              value: "clair"
+              value: clair
             - name: POSTGRES_PASSWORD
-              value: "postgres"
+              value: postgres
             - name: PGDATA
-              value: "/var/lib/postgresql/data/pgdata"
-          # volumeMounts:
-          #   - name: postgres-data
-          #     mountPath: "/var/lib/postgresql/data"
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data

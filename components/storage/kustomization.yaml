@@ -1,0 +1,16 @@
+# Storage component adds blob storage for Quay to use
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+resources:
+  # TODO(alecmerdler): What is default storage...?
+generatorOptions:
+  disableNameSuffixHash: true
+secretGenerator:
+  # Add storage fields to `config.yaml` (https://github.com/kubernetes-sigs/kustomize/blob/master/examples/combineConfigs.md)
+  - name: quay-config-secret
+    behavior: merge
+    literals:
+      # TODO(alecmerdler): Don't use `LocalStorage`...
+      - "DISTRIBUTED_STORAGE_CONFIG={default: [LocalStorage, {storage_path: test/data/registry/eu}]}"
+      - "DISTRIBUTED_STORAGE_PREFERENCE=[default]"
+      - "DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS=[default]"

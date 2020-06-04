@@ -4,8 +4,8 @@ resources:
   - ../base
 components:
   - ../components/postgres
-  # - ../components/redis
-  # - ../components/clair
+  - ../components/redis
+  - ../components/clair
 secretGenerator:
   - name: quay-config-secret
     behavior: merge
