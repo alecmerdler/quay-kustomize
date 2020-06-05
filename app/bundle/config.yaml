@@ -6,4 +6,4 @@ SUPER_USERS:
 PREFERRED_URL_SCHEME: https
 REGISTRY_TITLE: Quay
 REGISTRY_TITLE_SHORT: Quay
-SERVER_HOSTNAME: quay-registry.skynet-dev.com
+SERVER_HOSTNAME: quay-app.quay-enterprise
