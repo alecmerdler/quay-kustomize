@@ -4,6 +4,7 @@ kind: Component
 resources: 
   - ./clair.deployment.yaml
   - ./clair.service.yaml
+  - ./postgres.persistentvolumeclaim.yaml
   - ./postgres.deployment.yaml
   - ./postgres.service.yaml
 generatorOptions:

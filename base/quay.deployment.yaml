@@ -21,13 +21,12 @@ spec:
           secret:
             secretName: quay-config-secret
         # TODO(alecmerdler): Maybe we have this as a "dev" overlay...?
-        - name: quay-datastorage
-          persistentVolumeClaim:
-            claimName: quay-datastorage
+        # - name: quay-datastorage
+        #   persistentVolumeClaim:
+        #     claimName: quay-datastorage
       containers:
         - name: quay-app
-          # NOTE: Using image that can start with empty database
-          image: quay.io/alecmerdler/quay@sha256:5f7981fa27af440aa9b293a0fa35fd88ee8f9df18a7bff4403a49ae135339df1
+          image: quay.io/projectquay/quay:qui-gon
           env:
             - name: QE_K8S_CONFIG_SECRET
               # FIXME(alecmerdler): Using `vars` is kinda ugly because it's basically templating, but this needs to be the generated `Secret` name...
@@ -45,5 +44,5 @@ spec:
             - name: configvolume
               readOnly: false
               mountPath: /conf/stack
-            - name: quay-datastorage
-              mountPath: /datastorage
+            # - name: quay-datastorage
+            #   mountPath: /datastorage

@@ -6,14 +6,9 @@ components:
   - ../components/postgres
   - ../components/redis
   - ../components/clair
-  - ../components/storage
+# TODO(alecmerdler): Define patch which replaces `type: LoadBalancer` for Quay service for `ClusterIP` (just use `kubefwd` for access)
 secretGenerator:
   - name: quay-config-secret
     behavior: merge
     files:
       - ./bundle/config.yaml
-      - ./bundle/ssl.cert
-      - ./bundle/ssl.key
-# images:
-#   - name: quay.io/alecmerdler/quay
-#     digest: sha256:339085400d7499edf5a03fdbb581a4df5564100b1f80bafc8b7b99a7362ce77f

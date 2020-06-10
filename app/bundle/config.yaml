@@ -6,4 +6,9 @@ SUPER_USERS:
 PREFERRED_URL_SCHEME: https
 REGISTRY_TITLE: Quay
 REGISTRY_TITLE_SHORT: Quay
-SERVER_HOSTNAME: quay-app.quay-enterprise
+SERVER_HOSTNAME: quay-app.skynet-quay-enterprise
+# DATA_MODEL_CACHE_CONFIG:
+#   engine: redis
+#   endpoint:
+#     - quay-redis
+#     - 6379

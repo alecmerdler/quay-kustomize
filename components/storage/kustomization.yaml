@@ -1,16 +1,16 @@
 # Storage component adds blob storage for Quay to use
+# FIXME(alecmerdler): Getting error when trying to push image: `ERRO pool stdout event buffer overflowed, discarding event 271`
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
-  # TODO(alecmerdler): What is default storage...?
-generatorOptions:
-  disableNameSuffixHash: true
+  - ./minio.persistentvolumeclaim.yaml
+  - ./minio.service.yaml
+  - ./minio.deployment.yaml
 secretGenerator:
   # Add storage fields to `config.yaml` (https://github.com/kubernetes-sigs/kustomize/blob/master/examples/combineConfigs.md)
   - name: quay-config-secret
     behavior: merge
     literals:
-      # TODO(alecmerdler): Don't use `LocalStorage`...
-      - "DISTRIBUTED_STORAGE_CONFIG={default: [LocalStorage, {storage_path: test/data/registry/eu}]}"
+      - "DISTRIBUTED_STORAGE_CONFIG={default: [S3Storage, {s3_bucket: quay-datastore, storage_path: datastorage/, s3_access_key: minio, s3_secret_key: minio123, host: quay-datastore, port: 9000}]}"
       - "DISTRIBUTED_STORAGE_PREFERENCE=[default]"
       - "DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS=[default]"

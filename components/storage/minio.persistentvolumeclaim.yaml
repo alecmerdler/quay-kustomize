@@ -1,9 +1,9 @@
-# TODO(alecmerdler): Remove this and/or add to `dev` overlay
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: quay-datastorage
+  name: minio-pv-claim
   labels:
+    app: minio-storage-claim
     quay-component: quay-app
 spec:
   accessModes:
