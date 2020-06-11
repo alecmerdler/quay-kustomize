@@ -1,0 +1,20 @@
+{
+  "name": "tng-operator",
+  "version": "1.0.0",
+  "description": "TNG Operator",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node controller.ts",
+    "secret": "kubectl create -n skynet-registry secret generic --from-file=config.yaml=../skynet/bundle/config.yaml --from-file=ssl.key=../skynet/bundle/ssl.key --from-file=ssl.cert=../skynet/bundle/ssl.cert quay-config-secret-abc123"
+  },
+  "author": "Alec Merdler",
+  "license": "MIT",
+  "dependencies": {
+    "@kubernetes/client-node": "^0.12.0",
+    "js-yaml": "^3.14.0",
+    "typescript": "^3.9.5"
+  },
+  "devDependencies": {
+    "ts-node": "^8.10.2"
+  }
+}
