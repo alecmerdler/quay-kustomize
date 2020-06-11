@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -27,11 +28,11 @@ func check(err error) {
 }
 
 // generate uses Kustomize as a library to build the output files.
-func generate() {
+func generate(appDir string) {
 	fSys := filesys.MakeFsOnDisk()
 	opts := &krusty.Options{}
 	k := krusty.MakeKustomizer(fSys, opts)
-	m, err := k.Run("./app")
+	m, err := k.Run(appDir)
 	check(err)
 
 	err = emitResources(fSys, m)
@@ -43,7 +44,11 @@ func generate() {
 //
 // Usage: rm -rf ./output/* && go run main.go
 func main() {
-	generate()
+	appDir := os.Getenv("APP_DIR")
+	if appDir == "" {
+		appDir = "app"
+	}
+	generate(appDir)
 
 	quayConfigSecretFile := ""
 
