@@ -1,10 +1,14 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: quay-datastore
   labels:
     quay-component: quay-app
 spec:
+  selector:
+    matchLabels:
+      app: quay-datastore
+      quay-component: quay-app
   strategy:
     type: Recreate
   template:
@@ -24,13 +28,19 @@ spec:
         command: ["minio"]
         args: ["server", "/storage"]
         env:
-        # FIXME(alecmerdler): Put these in a `Secret` and reference using `valueFrom.secretKeyRef`...
         - name: MINIO_ACCESS_KEY
-          value: "minio"
+          valueFrom:
+            secretKeyRef:
+              name: quay-storage
+              key: MINIO_ACCESS_KEY
         - name: MINIO_SECRET_KEY
-          value: "minio123"
+          valueFrom:
+            secretKeyRef:
+              name: quay-storage
+              key: MINIO_SECRET_KEY
+        # TODO(alecmerdler): Try out custom SSL certificates
         ports:
         - containerPort: 9000
         volumeMounts:
         - name: storage 
-          mountPath: "/storage"
+          mountPath: /storage

@@ -1,5 +1,4 @@
 # Storage component adds blob storage for Quay to use
-# FIXME(alecmerdler): Getting error when trying to push image: `ERRO pool stdout event buffer overflowed, discarding event 271`
 apiVersion: kustomize.config.k8s.io/v1alpha1
 kind: Component
 resources:
@@ -7,6 +6,10 @@ resources:
   - ./minio.service.yaml
   - ./minio.deployment.yaml
 secretGenerator:
+  - name: quay-storage
+    literals:
+      - MINIO_ACCESS_KEY=minio
+      - MINIO_SECRET_KEY=minio123
   # Add storage fields to `config.yaml` (https://github.com/kubernetes-sigs/kustomize/blob/master/examples/combineConfigs.md)
   - name: quay-config-secret
     behavior: merge

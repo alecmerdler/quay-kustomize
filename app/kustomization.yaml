@@ -14,6 +14,4 @@ secretGenerator:
       - ./bundle/config.yaml
       - ./bundle/ssl.cert
       - ./bundle/ssl.key
-# images:
-#   - name: quay.io/alecmerdler/quay
-#     digest: sha256:339085400d7499edf5a03fdbb581a4df5564100b1f80bafc8b7b99a7362ce77f
+      # - ./extra_ca_certs/extra_ca_certs_storage.cert
