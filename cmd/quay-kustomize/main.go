@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"gopkg.in/yaml.v2"
-	// TODO(alecmerdler): Import from `kustomize` to use as library instead of CLI
 	"sigs.k8s.io/kustomize/api/filesys"
 	"sigs.k8s.io/kustomize/api/krusty"
 	"sigs.k8s.io/kustomize/api/resmap"
