@@ -1,0 +1,8 @@
+apiVersion: dbaoperator.app-sre.redhat.com/v1alpha1
+kind: ManagedDatabase
+metadata:
+  name: quay-database
+  labels:
+    app: quay
+spec:
+  connection: postgresql://postgres:postgres@quay-postgres/quay
