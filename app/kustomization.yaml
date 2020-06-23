@@ -12,6 +12,6 @@ secretGenerator:
     behavior: merge
     files:
       - ./bundle/config.yaml
-      - ./bundle/ssl.cert
-      - ./bundle/ssl.key
-      # - ./extra_ca_certs/extra_ca_certs_storage.cert
+      # Uncomment if you want to add your own SSL certificates
+      # - ./bundle/ssl.cert
+      # - ./bundle/ssl.key
