@@ -7,6 +7,7 @@ resources:
   - ./minio.deployment.yaml
 secretGenerator:
   - name: quay-storage
+    # TODO(alecmerdler): Add certs here...
     literals:
       - MINIO_ACCESS_KEY=minio
       - MINIO_SECRET_KEY=minio123
@@ -14,6 +15,6 @@ secretGenerator:
   - name: quay-config-secret
     behavior: merge
     literals:
-      - "DISTRIBUTED_STORAGE_CONFIG={default: [S3Storage, {s3_bucket: quay-datastore, storage_path: datastorage/, s3_access_key: minio, s3_secret_key: minio123, host: quay-datastore, port: 9000}]}"
+      - "DISTRIBUTED_STORAGE_CONFIG={default: [RadosGWStorage, {hostname: quay-datastore, is_secure: false, storage_path: /datastorage/registry, access_key: minio, secret_key: minio123, bucket_name: quay-datastore, port: 9000}]}"
       - "DISTRIBUTED_STORAGE_PREFERENCE=[default]"
       - "DISTRIBUTED_STORAGE_DEFAULT_LOCATIONS=[default]"

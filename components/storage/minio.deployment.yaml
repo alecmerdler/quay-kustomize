@@ -22,7 +22,6 @@ spec:
         persistentVolumeClaim:
           claimName: minio-pv-claim
       containers:
-      # TODO(alecmerdler): Sidecar container which creates `quay-datastore` bucket (https://github.com/minio/minio/issues/4882)
       - name: minio
         image: minio/minio
         command: ["minio"]
@@ -38,7 +37,28 @@ spec:
             secretKeyRef:
               name: quay-storage
               key: MINIO_SECRET_KEY
-        # TODO(alecmerdler): Try out custom SSL certificates
+      # Sidecar container which creates `quay-datastore` bucket (https://github.com/minio/minio/issues/4882).
+      - name: minio-mc
+        image: minio/mc
+        command: [
+          "/bin/sh", 
+          "-c",
+          "/usr/bin/mc config host add quay-datastore http://quay-datastore:9000 $MINIO_ACCESS_KEY $MINIO_SECRET_KEY;
+          /usr/bin/mc mb quay-datastore/quay-datastore;
+          while true; do sleep 30; done;"
+        ]
+        env:
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: quay-storage
+              key: MINIO_ACCESS_KEY
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: quay-storage
+              key: MINIO_SECRET_KEY
+        # TODO(alecmerdler): Use SSL certificates
         ports:
         - containerPort: 9000
         volumeMounts:
