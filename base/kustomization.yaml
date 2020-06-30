@@ -9,6 +9,7 @@ resources:
   - ./quay.deployment.yaml
   - ./quay.service.yaml
   - ./quay.persistentvolumeclaim.yaml
+  - ./quay.horizontalpodautoscaler.yaml
 secretGenerator:
   - name: quay-config-secret
     literals:
