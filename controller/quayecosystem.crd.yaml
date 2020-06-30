@@ -49,6 +49,9 @@ spec:
           required:
             - configBundleSecret
           properties:
+            desiredVersion:
+              description: The version of Quay and its components to deploy. Changing this value triggers an update.
+              type: string
             configBundleSecret:
               description: Reference to a Secret containing Quay's config and extra SSL certs.
               type: string
@@ -66,8 +69,8 @@ spec:
         status:
           type: object
           properties:
-            registryURL:
-              description: The public URL of the Quay registry.
+            registryEndpoint:
+              description: The external IP address of the Quay registry.
               type: string
             conditions:
               description: Conditions of the Quay ecosystem.

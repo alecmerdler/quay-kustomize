@@ -17,25 +17,6 @@ import (
 	"sigs.k8s.io/kustomize/api/resource"
 )
 
-// TODO(alecmerdler): Write function which takes a `QuayEcosystem` and "inflates" it into a `kustomize` directory...
-type QuayEcosystem struct {
-	Spec   QuayEcosystemSpec
-	Status QuayEcosystemStatus
-}
-
-type QuayEcosystemSpec struct {
-	ConfigBundleSecret string
-	ManagedComponents  []ManagedComponent
-}
-
-type ManagedComponent struct {
-	Kind string
-}
-
-type QuayEcosystemStatus struct {
-	RegistryURL string
-}
-
 func isConfigField(field string) bool {
 	return !strings.Contains(field, ".")
 }
